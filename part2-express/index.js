@@ -4,14 +4,9 @@ const { faker } = require('@faker-js/faker');
 const app = express()
 const port = 3000
 
-// Get one company
+// Get 'amount' companies or 1 if amount is not specified
 app.get('/', (req, res) => {
-	res.json(generate_companies(1));
-});
-
-// Get 'amount' companies
-app.get('/:amount', (req, res) => {
-	let amount = parseInt(req.params.amount);
+	let amount = req.query.amount != '' ? parseInt(req.query.amount) : 1;
 	if (!Number.isInteger(amount) || amount <= 0) {
 		res
 			.status(400)
@@ -23,7 +18,7 @@ app.get('/:amount', (req, res) => {
 		return;
 	}
 
-	res.json(generate_companies(req.params.amount));
+	res.json(generate_companies(amount));
 });
 
 // Generate a list of random imaginary companies
