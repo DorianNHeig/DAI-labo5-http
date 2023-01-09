@@ -8,6 +8,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.http-static.rule=Host(`localhost`)"
+      - "traefik.http.services.web-static.loadbalancer.sticky.cookie.name=sticky_session_static_web"
     scale: 3
 
   http-dyn:
