@@ -1,5 +1,4 @@
-FROM httpd:2.4
-COPY ./site/ /usr/local/apache2/htdocs/
-COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
+FROM  php:apache
+COPY ./site/ /var/www/html/
 
 EXPOSE 80

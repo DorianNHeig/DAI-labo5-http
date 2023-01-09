@@ -4,15 +4,16 @@ services:
   http-static:
     image: daiapache2
     ports: 
-      - 81:80
+      - 81-83:80
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.http-static.rule=Host(`localhost`)"
+    scale: 3
 
   http-dyn:
     image: daiexpress
     ports: 
-      - 82:3000
+      - 85:3000
     command: node .
     labels:
       - "traefik.enable=true"
