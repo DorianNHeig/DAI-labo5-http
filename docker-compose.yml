@@ -13,13 +13,14 @@ services:
   http-dyn:
     image: daiexpress
     ports: 
-      - 85:3000
+      - 85-86:3000
     command: node .
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.http-dyn.rule=(Host(`localhost`) && PathPrefix(`/api`))"
       - "traefik.http.middlewares.http-dyn-stripprefix.stripprefix.prefixes=/api"
       - "traefik.http.routers.http-dyn.middlewares=http-dyn-stripprefix"
+    scale: 2
 
   reverse-proxy:
     # The official v2 Traefik docker image
