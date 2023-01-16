@@ -6,6 +6,8 @@ const port = 3000
 
 // Get 'amount' companies or 1 if amount is not specified
 app.get('/', (req, res) => {
+	console.log("Request");
+
 	let amount = req.query.amount == null || req.query.amount == '' ? 1 : parseInt(req.query.amount);
 	if (!Number.isInteger(amount) || amount <= 0) {
 		res

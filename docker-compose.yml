@@ -3,22 +3,18 @@ version: '3'
 services:
   http-static:
     image: daiapache2
-    ports: 
-      - 81-83:80
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.http-static.rule=Host(`localhost`)"
+      - "traefik.http.routers.http-static.rule=PathPrefix(`/`)"
       - "traefik.http.services.web-static.loadbalancer.sticky.cookie.name=sticky_session_static_web"
     scale: 3
 
   http-dyn:
     image: daiexpress
-    ports: 
-      - 85-86:3000
     command: node .
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.http-dyn.rule=(Host(`localhost`) && PathPrefix(`/api`))"
+      - "traefik.http.routers.http-dyn.rule=PathPrefix(`/api`)"
       - "traefik.http.middlewares.http-dyn-stripprefix.stripprefix.prefixes=/api"
       - "traefik.http.routers.http-dyn.middlewares=http-dyn-stripprefix"
     scale: 2
